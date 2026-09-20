@@ -1,0 +1,21 @@
+# POE.md
+## PoE (Power over Ethernet)
+
+![PoE (Power over Ethernet)](https://raw.githubusercontent.com/nnnaanaa/document/main/images/poe.png)
+
+***
+
+## PoE とは
+
+* イーサネットの配線で利用できる**UTPケーブル(LANケーブル)を使って電源を供給する技術**
+* **無線AP(アクセスポイント)** や **IP電話機**、**スイッチングハブ** などに利用される
+
+## 規格の種類
+
+| 規格 | 呼称 | 最大供給電力 |
+| --- | --- | --- |
+| **IEEE 802.3af** | PoE | **15.4W** |
+| **IEEE 802.3at** | PoE+ | **30W** |
+| **IEEE 802.3bt** | PoE++ | **90W** |
+
+※ スライドの802.3btは90W表記。802.3btにはType 3(60W)とType 4(90W)があり、出典により表記が異なる（[ieee802x.md](ieee802x.md) はQiita記事に合わせて 60W / 99W）。
