@@ -1,8 +1,6 @@
 # ETHERNET-TYPES.md
 ## 代表的なイーサネット
 
-![代表的なイーサネット](https://raw.githubusercontent.com/nnnaanaa/document/main/images/ethernet-types.png)
-
 ***
 
 ## 代表的なイーサネット

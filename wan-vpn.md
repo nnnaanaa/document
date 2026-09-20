@@ -1,8 +1,6 @@
 # WAN-VPN.md
 ## WAN (Wide Area Network) / VPN (Virtual Private Network) 表
 
-![WAN / VPN 表](https://raw.githubusercontent.com/nnnaanaa/document/main/images/wan-vpn.png)
-
 ***
 
 ## 概要

@@ -1,8 +1,6 @@
 # POE.md
 ## PoE (Power over Ethernet)
 
-![PoE (Power over Ethernet)](https://raw.githubusercontent.com/nnnaanaa/document/main/images/poe.png)
-
 ***
 
 ## PoE とは

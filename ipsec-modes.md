@@ -1,8 +1,6 @@
 # IPSEC-MODES.md
 ## トランスポートモード vs トンネルモード
 
-![トランスポートモード vs トンネルモード](https://raw.githubusercontent.com/nnnaanaa/document/main/images/ipsec-modes.png)
-
 ***
 
 ## 比較表
