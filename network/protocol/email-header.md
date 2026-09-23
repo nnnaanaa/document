@@ -44,4 +44,4 @@ X-Mailer: ExampleMailer (Version 5.2)
 * `Received` は経路上のサーバが**先頭に追加していく**ため、上が新しく、**下から上にたどる**と送信元から受信者までの経路になる
 * **電子メールのヘッダは偽装することができる**
 
-関連: [well-known-ports.md](well-known-ports.md)（SMTP 25 / 587、POP3 110、IMAP 143 など）
+関連: [well-known-ports.md](well-known-ports.md)（SMTP 25 / 587、POP3 110、IMAP 143 など） / [mail-security.md](mail-security.md)（SPF・DKIM・DMARCによる送信ドメイン認証）
