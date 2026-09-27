@@ -45,4 +45,13 @@
 | 名前解決・アドレス配布 | 53 (DNS) / 67・68 (DHCP) |
 | 経路制御 | 179 (BGP) |
 
-関連: [dhcp.md](dhcp.md) / [email-header.md](email-header.md)
+## その他のポート（ウェルノウン以外で資料内に登場）
+
+| ポート番号 | プロトコル | 用途 |
+| --- | --- | --- |
+| 500 | UDP | IKE（ISAKMP） |
+| 4500 | UDP | IKE（NATトラバーサル時） |
+| 4739 | UDP/TCP | IPFIX |
+| 4789 | UDP | VXLAN |
+
+関連: [dhcp.md](dhcp.md) / [email-header.md](email-header.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md) / [../operation/monitoring.md](../operation/monitoring.md)

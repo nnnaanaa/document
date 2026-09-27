@@ -23,4 +23,4 @@
 
 「インターネット経由か」は、専用線・広域イーサネット・IP-VPNが**No**、インターネットVPN(IP-Sec / SSL-VPN)が**Yes**。
 
-IP-Secのトンネルモード/トランスポートモードの違いは [ipsec-modes.md](ipsec-modes.md) を参照。
+IP-Secのトンネルモード/トランスポートモードの違いやIKE・NATトラバーサルは [ipsec.md](ipsec.md)、IP-VPNで使われるMPLSは [mpls.md](mpls.md)、PPP/PPPoEは [ppp.md](ppp.md) を参照。
