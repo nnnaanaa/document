@@ -1,5 +1,5 @@
 # BGP-CHEATSHEET.md
-## BGP チートシート
+## BGP 暗記シート
 
 ***
 

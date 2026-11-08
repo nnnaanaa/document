@@ -1,5 +1,5 @@
 # SD-WAN.md
-## SD-WAN チートシート
+## SD-WAN 暗記シート
 
 ***
 

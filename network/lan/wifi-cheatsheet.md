@@ -1,5 +1,5 @@
 # WIFI-CHEATSHEET.md
-## 無線LAN チートシート
+## 無線LAN 暗記シート
 
 ***
 
