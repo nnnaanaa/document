@@ -78,16 +78,19 @@
 
 ```mermaid
 flowchart TB
-  subgraph OLD["従来：本社を経由（本社の回線が混雑）"]
+  subgraph OLD["従来"]
     direction LR
     K1["拠点"] -- "IP-VPN" --> H["本社<br>プロキシ・FW"] --> I1(("インター<br>ネット"))
   end
-  subgraph NEW["SD-WAN：ローカルブレイクアウト"]
+  subgraph NEW["SD-WAN"]
     direction LR
     K2["拠点"] -- "直接" --> I2(("インター<br>ネット"))
   end
   OLD ~~~ NEW
 ```
+
+- **従来**: 拠点の通信も本社を経由してインターネットへ出る → **本社の回線・プロキシが混雑**
+- **SD-WAN**: 拠点から直接インターネットへ出す（**ローカルブレイクアウト**）
 
 | 項目 | 内容 |
 | --- | --- |

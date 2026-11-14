@@ -179,18 +179,16 @@ LOCAL_PREF は「**自 AS から外へ出るとき、どの出口を使うか**�
 
 ```mermaid
 flowchart TB
-  A["ISP-A"]
-  B["ISP-B"]
   subgraph OWN["自社（AS 65000）"]
+    R3["R3"]
     R1["R1<br>LOCAL_PREF 200 を付ける"]
     R2["R2<br>LOCAL_PREF 100（既定）"]
-    R3["R3"]
+    R3 <-- iBGP --> R1
+    R3 <-- iBGP --> R2
     R1 <-- iBGP --> R2
-    R1 <-- iBGP --> R3
-    R2 <-- iBGP --> R3
   end
-  A <-- eBGP --> R1
-  B <-- eBGP --> R2
+  R1 <-- eBGP --> A["ISP-A"]
+  R2 <-- eBGP --> B["ISP-B"]
 ```
 
 - R1 は ISP-A から受けた経路に **LOCAL_PREF 200** を付け、R2 は ISP-B から受けた経路を既定の **100** のまま扱う。iBGP は R1・R2・R3 のフルメッシュ
