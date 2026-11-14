@@ -222,37 +222,46 @@
 
 ### 構成
 
-```text
-   Site A                                              Site B
-  LAN --- [RA] ===== GRE tunnel 172.16.0.0/30 ===== [RB] --- LAN
-           | .1                                   .2 |
-           |                                         |
-     198.51.100.1 --------- Internet ---------- 203.0.113.1
+```mermaid
+flowchart LR
+  RA["拠点A のルータ RA<br>WAN 198.51.100.1<br>トンネル 172.16.0.1"]
+  NET(("インターネット"))
+  RB["拠点B のルータ RB<br>WAN 203.0.113.1<br>トンネル 172.16.0.2"]
+  RA --- NET --- RB
+  RA <-. "GRE トンネル<br>IPsec で暗号化" .-> RB
 ```
 
+- 実線がインターネットを通る実際の経路、点線がその上に作る **GRE トンネル**（各ルータの LAN はトンネルの先にある）
 - **GRE トンネル**: RA のトンネルインタフェースは送信元 198.51.100.1・宛先 203.0.113.1（WAN のアドレス）。トンネル自体には 172.16.0.0/30 を割り当てる
 - **OSPF** はトンネルインタフェース（172.16.0.1 と .2）でネイバーを作る
 - **IPsec** で暗号化する対象は「198.51.100.1 と 203.0.113.1 の間の GRE（プロトコル番号 47）」
 
 ### パケットの構造
 
-```text
-(1) 元のパケット
-                                  | IP | OSPF / data |
-
-(2) GRE で包む
-                 | Outer IP | GRE | IP | OSPF / data |
-
-(3) IPsec で暗号化（トンネルモード）
-  | New IP | ESP | Outer IP | GRE | IP | OSPF / data | ESP trailer |
-                 <----------------------------------->  暗号化される
+```mermaid
+block-beta
+  columns 8
+  l1["①"] space:4 ip1["IP"] d1["データ"] space
+  l2["②"] space:2 o2["外側IP"] g2["GRE"] ip2["IP"] d2["データ"] space
+  l3["③"] n3["新IP"] e3["ESP"] o3["外側IP"] g3["GRE"] ip3["IP"] d3["データ"] t3["ESP末尾"]
+  classDef lbl fill:#ffffff,stroke:#ffffff,font-weight:bold
+  classDef enc fill:#cfe8ff,stroke:#6b9bd1
+  classDef add fill:#efebff,stroke:#8e7cd6
+  class l1,l2,l3 lbl
+  class o3,g3,ip3,d3 enc
+  class o2,g2,n3,e3,t3 add
 ```
+
+- **①** 元のパケット → **②** GRE で包む → **③** IPsec（トンネルモード）で暗号化
+- 紫は付け足されたヘッダ、**水色は ③ で暗号化される部分**（外側IP 〜 データ）
 
 | 図の名前 | 意味 |
 | --- | --- |
 | IP | 元のパケットの IP ヘッダ（LAN のアドレス） |
-| Outer IP | GRE の外側の IP ヘッダ（**WAN のアドレス**） |
-| New IP | IPsec が付ける新しい IP ヘッダ（WAN のアドレス） |
+| データ | OSPF のパケットや通常の通信の中身 |
+| 外側IP | GRE の外側の IP ヘッダ（**WAN のアドレス**） |
+| 新IP | IPsec が付ける新しい IP ヘッダ（WAN のアドレス） |
+| ESP末尾 | ESP のトレーラと認証データ |
 
 - 上は IPsec の**トンネルモード**。GRE の外側 IP と送信元・宛先が同じなので、**トランスポートモード**にして新 IP ヘッダを省き、オーバーヘッドを減らすことが多い
 
