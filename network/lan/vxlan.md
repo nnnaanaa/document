@@ -29,10 +29,17 @@
 
 ## カプセル化とヘッダ
 
+```mermaid
+block-beta
+  columns 5
+  a["外側<br>Ethernet<br>14Byte"] b["外側 IP<br>20Byte"] c["外側 UDP<br>8Byte"] d["VXLAN<br>ヘッダ<br>8Byte"] e["元の<br>Ethernet<br>フレーム"]
+  classDef add fill:#efebff,stroke:#8e7cd6
+  classDef orig fill:#cfe8ff,stroke:#6b9bd1
+  class a,b,c,d add
+  class e orig
 ```
-| 外側Ethernet | 外側IP | 外側UDP | VXLANヘッダ | 元のEthernetフレーム（宛先MAC～データ） |
-    14Byte      20Byte    8Byte      8Byte     ← ここまでで 50Byte 増える
-```
+
+- 紫の4つが VXLAN で付け足す部分（14 ＋ 20 ＋ 8 ＋ 8 ＝ **50Byte**）、水色が元のフレーム（宛先 MAC 〜 データ）
 
 | ヘッダ | 中身 | ポイント |
 | --- | --- | --- |
@@ -49,14 +56,16 @@
 
 カプセル化で **50Byte 増える**ので、アンダーレイの MTU を大きくしておかないと、元の 1500Byte のパケットが通らない。
 
-```
-元のIPパケット 1500
-＋ 元のEthernetヘッダ 14
-＋ VXLANヘッダ 8
-＋ 外側UDP 8
-＋ 外側IP 20
-＝ 外側IPパケット 1550Byte  → アンダーレイの IP MTU は 1550 以上が必要
-```
+| 項目 | Byte |
+| --- | --- |
+| 元の IP パケット | 1500 |
+| ＋ 元の Ethernet ヘッダ | 14 |
+| ＋ VXLAN ヘッダ | 8 |
+| ＋ 外側 UDP | 8 |
+| ＋ 外側 IP | 20 |
+| **＝ 外側 IP パケット** | **1550** |
+
+→ アンダーレイの **IP MTU は 1550 以上**が必要
 
 - 実際は余裕を持って **ジャンボフレーム（9000 など）** に設定する
 - VTEP は VXLAN パケットを**フラグメントしない**（RFC 7348）→ MTU 不足だと**大きいパケットだけ通らない**（ping は通るのにファイル転送が失敗する、など）
@@ -78,11 +87,21 @@
 
 ## Leaf-Spine 構成（アンダーレイ）
 
+```mermaid
+flowchart TB
+  S1["Spine1"]
+  S2["Spine2"]
+  L1["Leaf1（VTEP）"]
+  L2["Leaf2（VTEP）"]
+  L3["Leaf3（VTEP）"]
+  S1 --- L1 & L2 & L3
+  S2 --- L1 & L2 & L3
+  L1 --- V1["サーバ・VM"]
+  L2 --- V2["サーバ・VM"]
+  L3 --- V3["サーバ・VM"]
 ```
-   Spine1        Spine2          ← Leaf 同士の通信を中継（VXLAN の中身は見ない）
-   /  |  \      /  |  \
-Leaf1 Leaf2 Leaf3 ...            ← VTEP。サーバ・VM を収容
-```
+
+- **Spine**: Leaf 同士の通信を中継する（VXLAN の中身は見ない）／ **Leaf**: VTEP。サーバ・VM を収容する
 
 | 項目 | 内容 |
 | --- | --- |
