@@ -81,27 +81,17 @@
 
 ### ネイバーの状態
 
-```text
-Down
- |
- v
-Init
- |
- v
-2-Way      <-- DROther どうしはここで止まる（正常）
- |
- v
-ExStart
- |
- v
-Exchange
- |
- v
-Loading
- |
- v
-Full       <-- LSDB の同期が完了（隣接関係）
-```
+**Down → Init → 2-Way → ExStart → Exchange → Loading → Full** の順に進む。
+
+| 状態 | 何をしている段階か |
+| --- | --- |
+| Down | まだ相手の Hello を受け取っていない |
+| Init | 相手の Hello を受け取った（相手はまだ自分を知らない） |
+| **2-Way** | 互いの Hello に自分が載っている = **双方向の通信を確認**。ここで **DR/BDR を選ぶ**。**DROther どうしはここで止まる（正常）** |
+| ExStart | LSDB を交換する順番（マスター / スレーブ）を決める |
+| Exchange | **DBD** で LSDB の目次を交換する（**MTU が違うと ExStart / Exchange で止まる**） |
+| Loading | 足りない LSA を **LSR** で要求し、**LSU** で受け取る |
+| **Full** | **LSDB の同期が完了**（隣接関係） |
 
 | パケット | 役割 |
 | --- | --- |
