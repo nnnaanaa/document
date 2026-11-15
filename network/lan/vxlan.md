@@ -17,6 +17,22 @@
 | **VNI** | VXLAN の**ネットワーク識別子**。**24bit**（VLAN ID にあたる） |
 | **BUM** | **B**roadcast・**U**nknown Unicast・**M**ulticast。宛先が特定できずフラッディングされる通信 |
 
+```mermaid
+flowchart TB
+  subgraph OVER["オーバーレイ（論理）"]
+    direction LR
+    SA["サーバ A"] -. "VNI 10010" .- SB["サーバ B"]
+  end
+  subgraph UNDER["アンダーレイ（物理）"]
+    direction LR
+    VA["Leaf 1<br>（VTEP）"] --- SP["Spine"] --- VB["Leaf 2<br>（VTEP）"]
+  end
+  OVER ~~~ UNDER
+```
+
+- 上段は、サーバ A・B から見える**論理的な L2 ネットワーク**（同じ VNI 10010）。下段は、実際にパケットが通る**物理的な L3 ネットワーク**
+- Leaf（VTEP）が、サーバのフレームを VXLAN で包んで、アンダーレイ越しに相手の VTEP へ届ける
+
 ## VLAN との比較
 
 | 項目 | VLAN（IEEE 802.1Q） | VXLAN |
@@ -177,6 +193,24 @@ BUM（ブロードキャスト・未知ユニキャスト・マルチキャス�
 | マルチキャスト | マルチキャストグループ宛てに **1個**。ルータが VTEP 2・3・4 へコピーして配る |
 | **Ingress Replication** | VTEP 2 宛て・VTEP 3 宛て・VTEP 4 宛てに、**同じ内容を3個**、ユニキャストで送る |
 
+```mermaid
+flowchart TB
+  subgraph M["マルチキャスト"]
+    direction LR
+    M1["VTEP 1"] -- "1個" --> MR["ルータ"]
+    MR -- "コピー" --> M2["VTEP 2"]
+    MR -- "コピー" --> M3["VTEP 3"]
+  end
+  subgraph I["Ingress Replication"]
+    direction LR
+    I1["VTEP 1"] -- "コピー" --> I2["VTEP 2"]
+    I1 -- "コピー" --> I3["VTEP 3"]
+  end
+  M ~~~ I
+```
+
+- 図は VTEP 3 台の簡略版。**マルチキャストは途中のルータがコピー**し、**Ingress Replication は入口の VTEP がコピー**する
+
 **送り先（その VNI に参加している VTEP）はどう分かるか**
 - EVPN の **Type 3（Inclusive Multicast Ethernet Tag）** で、**VNI ごとに参加している VTEP を BGP で広告**し合っている
 - 入口の VTEP は、その一覧を**送り先リスト**として使う（名前に Multicast と付いているが、Ingress Replication でも使う）
@@ -193,6 +227,30 @@ BUM（ブロードキャスト・未知ユニキャスト・マルチキャス�
 - 欠点 → **VTEP が増えると、複製による送信量・帯域が増える**
 
 ## EVPN の要点
+
+EVPN で MAC アドレスの場所が広まる流れ（サーバ B が通信を始めたとき）:
+
+```mermaid
+---
+config:
+  sequence:
+    width: 120
+    actorMargin: 30
+---
+sequenceDiagram
+  participant B as サーバ B
+  participant V2 as VTEP 2
+  participant RR as Spine（RR）
+  participant V1 as VTEP 1
+  B->>V2: 通信を開始
+  Note over V2: MAC B を学習
+  V2->>RR: Type 2
+  RR->>V1: Type 2
+  Note over V1: MAC B は VTEP 2 の先
+```
+
+- VTEP 2 がサーバ B の MAC を**ローカルで学習**し、**Type 2（MAC/IP Advertisement）**として BGP で広告する
+- Spine（ルートリフレクタ）経由で、ほかの VTEP が**事前に**「MAC B は VTEP 2 の先」と知る → **宛先を探すフラッディングが不要**
 
 | 項目 | 内容 |
 | --- | --- |
@@ -295,10 +353,38 @@ flowchart LR
 | 非対称 IRB | 送信側の Leaf だけでルーティング。**全 Leaf に全 VNI の設定が必要** |
 | 対称 IRB | 送信側・受信側の両方の Leaf でルーティングし、間は **L3VNI** で運ぶ。大規模向け |
 
+エニーキャストゲートウェイ（VM が別の Leaf へ移動する例）:
+
+```mermaid
+flowchart LR
+  VM["VM<br>GW は 10.0.0.1"]
+  G1["Leaf 1<br>GW 10.0.0.1"]
+  G2["Leaf 2<br>GW 10.0.0.1"]
+  VM -- "移動前" --> G1
+  VM -. "移動後" .-> G2
+```
+
+- どの Leaf も**同じゲートウェイの IP・MAC** を持つので、VM が移動しても、**VM 側のゲートウェイ設定を変えずに**そのまま最寄りの Leaf でルーティングされる
+
 ## マルチテナント
 
 - テナントごとに **VNI（と VRF）を分ける** → **IP アドレスが重複していても混ざらない**
 - 例）顧客 A は VNI 10010、顧客 B は VNI 20010。どちらも 10.0.0.0/24 を使える
+
+```mermaid
+flowchart TB
+  subgraph A["顧客 A（VNI 10010）"]
+    direction LR
+    A1["VM 10.0.0.1"] --- A2["VM 10.0.0.2"]
+  end
+  subgraph B["顧客 B（VNI 20010）"]
+    direction LR
+    B1["VM 10.0.0.1"] --- B2["VM 10.0.0.2"]
+  end
+  A ~~~ B
+```
+
+- 同じ 10.0.0.1 でも、**VNI が違えば別のネットワーク**なので、顧客 A と B の VM は互いに混ざらない
 
 ## ほかのオーバーレイ技術
 
