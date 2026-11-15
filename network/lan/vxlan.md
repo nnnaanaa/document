@@ -85,6 +85,35 @@ block-beta
 | **VLAN と VNI の対応付け**は VTEP ごとに設定 | VLAN ID は**その Leaf の中だけで意味を持つ**。Leaf A の VLAN 10 と Leaf B の VLAN 20 を同じ VNI 10010 につなぐこともできる |
 | 1つの Leaf の中で使える VLAN は 4094 まで | VNI は 1677万でも、**サーバとの接続は VLAN** なので Leaf ごとの上限は残る |
 
+### VLAN ID が Leaf ごとに違っても、同じネットワークになる
+
+Leaf A では VLAN 10、Leaf B では VLAN 20 のポートにつないだサーバが、**同じ VNI 10010** を通じて同じ L2 ネットワークになる例。
+
+```mermaid
+---
+config:
+  sequence:
+    width: 120
+    actorMargin: 30
+---
+sequenceDiagram
+  participant SA as サーバ A
+  participant LA as Leaf A
+  participant LB as Leaf B
+  participant SB as サーバ B
+  SA->>LA: VLAN 10
+  Note over LA: VLAN 10 ⇒ VNI 10010
+  LA->>LB: VXLAN（VNI 10010）
+  Note over LB: VNI 10010 ⇒ VLAN 20
+  LB->>SB: VLAN 20
+```
+
+1. Leaf A に「**VLAN 10 ⇔ VNI 10010**」、Leaf B に「**VLAN 20 ⇔ VNI 10010**」と、**Leaf ごとに**設定する
+2. Leaf A は VLAN 10 のタグを**外し**、VNI 10010 を付けて VXLAN で送る（VXLAN の中では**元の VLAN ID はない**）
+3. Leaf B は VNI 10010 を受け取り、自分の設定どおり **VLAN 20 のポートへ**流す
+
+→ **VLAN ID が違っても、同じ VNI なら同じブロードキャストドメイン**。VLAN ID は Leaf の中だけの番号で、Leaf をまたぐ識別は **VNI** が担う
+
 ## Leaf-Spine 構成（アンダーレイ）
 
 ```mermaid
