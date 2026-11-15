@@ -95,8 +95,7 @@ block-beta
 flowchart LR
   P1["フェーズ1<br>認証と<br>鍵交換"] --> S1(["ISAKMP<br>SA"])
   S1 --> P2["フェーズ2<br>ESP の<br>鍵を決める"]
-  P2 --> S2(["IPsec<br>SA"])
-  S2 --> E["ESP で<br>通信"]
+  P2 --> S2(["IPsec SA<br>ESP で通信"])
 ```
 
 ### IKEv1
