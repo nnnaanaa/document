@@ -244,16 +244,25 @@ block-beta
   l1["①"] space:4 ip1["IP"] d1["データ"] space
   l2["②"] space:2 o2["外側IP"] g2["GRE"] ip2["IP"] d2["データ"] space
   l3["③"] n3["新IP"] e3["ESP"] o3["外側IP"] g3["GRE"] ip3["IP"] d3["データ"] t3["ESP末尾"]
+  l4["④"] space o4["外側IP"] e4["ESP"] g4["GRE"] ip4["IP"] d4["データ"] t4["ESP末尾"]
   classDef lbl fill:#ffffff,stroke:#ffffff,font-weight:bold
   classDef enc fill:#cfe8ff,stroke:#6b9bd1
   classDef add fill:#efebff,stroke:#8e7cd6
-  class l1,l2,l3 lbl
-  class o3,g3,ip3,d3 enc
-  class o2,g2,n3,e3,t3 add
+  class l1,l2,l3,l4 lbl
+  class o3,g3,ip3,d3,g4,ip4,d4 enc
+  class o2,g2,n3,e3,t3,o4,e4,t4 add
 ```
 
-- **①** 元のパケット → **②** GRE で包む → **③** IPsec（トンネルモード）で暗号化
-- 紫は付け足されたヘッダ、**水色は ③ で暗号化される部分**（外側IP 〜 データ）
+- **①** 元のパケット → **②** GRE で包む → IPsec で暗号化（**③ トンネルモード** または **④ トランスポートモード**）
+- 紫は付け足されたヘッダ、**水色は暗号化される部分**
+
+| | ③ トンネルモード | ④ トランスポートモード |
+| --- | --- | --- |
+| IP ヘッダ | **新IP を付ける**（外側IP も含めて丸ごと包む） | 新IP を付けず、**外側IP をそのまま先頭に使う**（その後ろに ESP を入れる） |
+| 暗号化される範囲 | 外側IP 〜 データ | GRE 〜 データ（外側IP は暗号化されない） |
+| 大きさ | 新IP の分（20Byte）大きい | **20Byte 小さい** |
+
+- GRE over IPsec では、**外側IP と新IP の送信元・宛先が同じ**（どちらも両拠点の WAN アドレス）なので、新IP は無駄になる → **④ トランスポートモードにしてオーバーヘッドを減らすことが多い**
 
 | 図の名前 | 意味 |
 | --- | --- |
@@ -262,8 +271,6 @@ block-beta
 | 外側IP | GRE の外側の IP ヘッダ（**WAN のアドレス**） |
 | 新IP | IPsec が付ける新しい IP ヘッダ（WAN のアドレス） |
 | ESP末尾 | ESP のトレーラと認証データ |
-
-- 上は IPsec の**トンネルモード**。GRE の外側 IP と送信元・宛先が同じなので、**トランスポートモード**にして新 IP ヘッダを省き、オーバーヘッドを減らすことが多い
 
 | 番号 | 意味 |
 | --- | --- |
