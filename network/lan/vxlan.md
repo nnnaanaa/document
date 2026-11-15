@@ -240,11 +240,39 @@ BUM（ブロードキャスト・未知ユニキャスト・マルチキャス�
 
 **マルチホーミング**: 1台のサーバを**別々の2台の Leaf につなぐ**こと。片方の Leaf が故障しても、もう片方で通信を続けられる。
 
+```mermaid
+flowchart TB
+  SP["Spine"]
+  subgraph ES["同じ ESI を設定"]
+    direction LR
+    L1["Leaf 1"]
+    L2["Leaf 2"]
+  end
+  SV["サーバ<br>（LAG で2本接続）"]
+  SP --- L1
+  SP --- L2
+  L1 --- SV
+  L2 --- SV
+```
+
 - サーバを **2台の Leaf に LAG で接続**して冗長化する
 - 困ること: LAG は**相手が1台のスイッチ**であることが前提なのに、相手の Leaf が**2台に分かれている**
 - 2台の Leaf でその LAG に**同じ ESI（Ethernet Segment Identifier、10Byte）**を設定 → サーバからは**1台のスイッチと LAG を組んでいる**ように見える
 - もう1つの困りごと: サーバへの BUM を2台の Leaf が**それぞれ転送し、二重に届いてしまう**
 - **DF（Designated Forwarder）**を選び、BUM を**どちらか1台だけ**がサーバへ送る（二重に届かないように）
+
+```mermaid
+flowchart LR
+  B["BUM を受けた<br>VTEP"]
+  L1["Leaf 1<br>（DF）"]
+  L2["Leaf 2<br>（DF ではない）"]
+  SV["サーバ"]
+  B --> L1
+  B --> L2
+  L1 -- "転送する" --> SV
+  L2 -. "送らない" .-> SV
+```
+
 - 似た方式: スタック接続や MLAG（2台を論理的に1台に見せ、**同じ VTEP アドレス（エニーキャスト）**を共有する）。ESI は**ベンダー独自ではなく標準（BGP）**で同じことをする方式
 
 | 用語 | 意味 |
