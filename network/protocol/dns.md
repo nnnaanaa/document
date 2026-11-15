@@ -24,20 +24,33 @@
 
 ## 名前解決の流れ
 
+PC が `www.example.jp` の IP アドレスを調べる例。
+
 ```mermaid
+---
+config:
+  sequence:
+    width: 120
+    actorMargin: 30
+---
 sequenceDiagram
   participant PC as PC
   participant C as キャッシュDNS
   participant U as ルート・jp
   participant A as 権威DNS
-  PC->>C: www.example.jp は？
-  C->>U: 同じ問合せ
-  U->>C: 下位のサーバに聞いて
-  C->>A: 同じ問合せ
-  A->>C: 192.0.2.10
-  Note over C: TTL の間キャッシュ
-  C->>PC: 192.0.2.10
+  PC->>C: 再帰問合せ
+  C->>U: 反復問合せ
+  U->>C: 次のサーバを回答
+  C->>A: 反復問合せ
+  A->>C: IP アドレス
+  Note over C: キャッシュ
+  C->>PC: IP アドレス
 ```
+
+1. PC がキャッシュ DNS サーバに「`www.example.jp` の IP アドレスは？」と頼む
+2. キャッシュ DNS サーバが上位の権威 DNS サーバに聞くと、「**下位のこのサーバに聞いて**」と次の問合せ先を教えられる
+3. `example.jp` の権威 DNS サーバに聞くと、IP アドレス（例: 192.0.2.10）が返る
+4. キャッシュ DNS サーバは結果を **TTL の間キャッシュ**し、PC に返す
 
 - 実際は**ルート → jp → example.jp** と1段ずつたどる（図では上位をまとめている）
 - キャッシュに答えがあれば、権威 DNS サーバには問い合わせずにすぐ返す

@@ -128,13 +128,17 @@ sequenceDiagram
   participant C as クライアント
   participant K as KDC
   participant S as サーバ
-  C->>K: ログイン（認証）
+  C->>K: ログイン
   K->>C: TGT
-  C->>K: TGT を提示し ST を要求
+  C->>K: TGT を提示
   K->>C: ST
   C->>S: ST を提示
   S->>C: 利用を許可
 ```
+
+1. 利用者がログイン（認証）すると、KDC が **TGT** を発行する
+2. サーバを使うときは、KDC に TGT を見せて、**そのサーバ用の ST** を発行してもらう
+3. サーバに ST を見せると、利用が許可される（サーバは**パスワードを受け取らない**）
 
 | 用語 | 内容 |
 | --- | --- |
@@ -154,15 +158,19 @@ sequenceDiagram
   participant B as ブラウザ
   participant SP as SP
   participant IdP as IdP
-  B->>SP: サービスにアクセス
-  SP->>B: IdP へリダイレクト（認証要求）
+  B->>SP: アクセス
+  SP->>B: IdP へリダイレクト
   B->>IdP: 認証要求
-  IdP->>B: ログイン画面（認証）
-  IdP->>B: アサーション（署名付き）
+  IdP->>B: ログイン画面
+  IdP->>B: アサーション
   B->>SP: アサーションを渡す
   Note over SP: 署名を検証
   SP->>B: ログイン完了
 ```
+
+1. 利用者が SP（クラウドサービスなど）にアクセスすると、SP は**認証要求を付けて IdP へリダイレクト**させる
+2. IdP が利用者を認証し（ログイン画面）、**署名付きのアサーション**を発行する
+3. ブラウザがアサーションを SP に渡し、SP は**署名を検証**してログインさせる
 
 | 用語 | 内容 |
 | --- | --- |
