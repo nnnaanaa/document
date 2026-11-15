@@ -13,14 +13,15 @@
 
 ```mermaid
 flowchart LR
-  PC["PC<br>DGW = 192.168.1.254"] --- SW["L2SW"]
-  SW --- R1["R1（マスタ）<br>実 IP .252　優先度 110"]
-  SW --- R2["R2（バックアップ）<br>実 IP .253　優先度 100"]
-  R1 --- UP(("上位の<br>ネットワーク"))
+  PC["PC<br>DGW .254"] --- SW["L2SW"]
+  SW --- R1["R1 マスタ<br>.252 優先度 110"]
+  SW --- R2["R2 バックアップ<br>.253 優先度 100"]
+  R1 --- UP(("上位"))
   R2 --- UP
 ```
 
-- R1 と R2 が**仮想 IP アドレス 192.168.1.254** を共有する（VRID 1 なら仮想 MAC アドレスは 00-00-5E-00-01-01）
+- R1（実 IP アドレス 192.168.1.252）と R2（192.168.1.253）が、**仮想 IP アドレス 192.168.1.254** を共有する（VRID 1 なら仮想 MAC アドレスは 00-00-5E-00-01-01）
+- PC のデフォルトゲートウェイ（DGW）は、仮想 IP アドレスの 192.168.1.254
 
 ## 用語
 
@@ -67,20 +68,19 @@ flowchart LR
 ---
 config:
   sequence:
-    width: 120
-    actorMargin: 30
+    width: 100
+    actorMargin: 40
 ---
 sequenceDiagram
   participant PC as PC
   participant SW as L2SW
-  participant R1 as R1（マスタ）
-  participant R2 as R2（バックアップ）
-  R1->>R2: アドバタイズメント（1秒ごと）
-  Note over R1: 故障
-  Note over R2: 約3秒届かない ⇒ マスタになる
-  R2->>SW: GARP（仮想 MAC アドレス）
-  Note over SW: MAC アドレステーブルを更新
-  PC->>R2: 仮想 MAC アドレス宛ての通信
+  participant R1 as R1<br>マスタ
+  participant R2 as R2<br>バックアップ
+  R1->>R2: 広告（1秒ごと）
+  R1--xR2: 故障で止まる
+  Note over R2: 約3秒待って<br>マスタに昇格
+  R2->>SW: GARP（仮想 MAC）
+  PC->>R2: 仮想 MAC 宛ての通信
 ```
 
 1. バックアップは、マスタからのアドバタイズメントを監視している
@@ -115,9 +115,9 @@ VRRP のアドバタイズメントは **LAN 側**で送られる。そのため
 ```mermaid
 flowchart LR
   PC["PC"] --- SW["L2SW"]
-  SW --- R1["R1（マスタ）<br>110 → 90"]
-  SW --- R2["R2（新マスタ）<br>100"]
-  R1 -. "× 回線断" .- UP(("上位の<br>ネットワーク"))
+  SW --- R1["R1 マスタ<br>110 → 90"]
+  SW --- R2["R2 新マスタ<br>100"]
+  R1 -. "× 回線断" .- UP(("上位"))
   R2 --- UP
 ```
 

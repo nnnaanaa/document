@@ -12,9 +12,9 @@
 
 ```mermaid
 flowchart LR
-  LA["拠点A の LAN<br>192.168.1.0/24"] --- RA["VPN 装置 A"]
-  RA <-. "IPsec トンネル（ESP）" .-> RB["VPN 装置 B"]
-  RB --- LB["拠点B の LAN<br>192.168.2.0/24"]
+  LA["拠点A<br>の LAN"] --- RA["VPN<br>装置 A"]
+  RA <-. "IPsec トンネル" .-> RB["VPN<br>装置 B"]
+  RB --- LB["拠点B<br>の LAN"]
 ```
 
 - LAN の中は平文、**VPN 装置の間（インターネット上）だけ暗号化**される
@@ -93,10 +93,10 @@ block-beta
 
 ```mermaid
 flowchart LR
-  P1["フェーズ1<br>相手の認証<br>DH 鍵交換"] --> S1(["ISAKMP SA"])
-  S1 --> P2["フェーズ2<br>ESP の方式と<br>鍵を決める"]
-  P2 --> S2(["IPsec SA"])
-  S2 --> E["ESP で通信"]
+  P1["フェーズ1<br>認証と<br>鍵交換"] --> S1(["ISAKMP<br>SA"])
+  S1 --> P2["フェーズ2<br>ESP の<br>鍵を決める"]
+  P2 --> S2(["IPsec<br>SA"])
+  S2 --> E["ESP で<br>通信"]
 ```
 
 ### IKEv1
