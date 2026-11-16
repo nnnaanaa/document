@@ -52,7 +52,7 @@ flowchart LR
 | 224.0.0.5 | 全 OSPF ルータ宛 |
 | 224.0.0.6 | 全 OSPF DR/BDR ルータ宛 |
 | 224.0.0.9 | RIPv2 |
-| 224.0.0.13 | PIM 用に予約 |
+| 224.0.0.13 | **全 PIM ルータ宛**。PIM ルータどうしの Hello、Join / Prune の宛先（Register は RP へユニキャストで送る） |
 | 224.0.0.18 | VRRP 用に予約 |
 | 224.0.0.22 | IGMP 用に予約（IGMPv3 の参加通知） |
 
