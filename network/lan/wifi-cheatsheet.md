@@ -90,7 +90,8 @@ sequenceDiagram
   participant AP as AP
   participant R as RADIUS
   AP-->>T: ビーコン
-  T<<->>AP: プローブ要求・応答
+  T->>AP: プローブ要求
+  AP-->>T: プローブ応答
   T<<->>AP: 認証（オープンシステム）
   T<<->>AP: アソシエーション
   Note over T,R: ここからエンタープライズのみ
