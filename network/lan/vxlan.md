@@ -440,16 +440,30 @@ flowchart TB
 
 ## 試験でよく問われるポイント
 
-- **VNI は 24bit、約1,677万**（VLAN の 12bit・4,094 と比べる）
-- **UDP 4789**。**送信元ポートはハッシュ値**で ECMP の負荷分散に使われる
-- **50Byte 増える** → **アンダーレイの MTU 不足**で大きいパケットだけ通らない
-- **VTEP の IP はループバック**に付ける（物理 IF の障害に強い）
-- **Leaf-Spine ＋ ECMP**、STP が要らない、Spine は VTEP ではない
-- **Flood & Learn はマルチキャスト（PIM）が必要**、**EVPN は MP-BGP**でフラッディングを減らす
-- EVPN の **Type 2（MAC/IP）・Type 3（BUM の送り先）**、**ARP 抑制**
-- **ESI**: 2台の Leaf への LAG に付ける共通の識別子。BUM は DF だけが送る
-- **iBGP のフルメッシュを避けるため Spine をルートリフレクタ**にする
-- **エニーキャストゲートウェイ**で VM が移動してもゲートウェイが変わらない
-- テナントごとに VNI を分ければ **IP アドレスが重複してもよい**
+### ヘッダ・MTU
+
+| 論点 | 覚えること |
+| --- | --- |
+| VNI | **24bit、約1,677万**（VLAN の 12bit・4,094 と比べる） |
+| UDP ポート | **UDP 4789**。**送信元ポートはハッシュ値**で、ECMP の負荷分散に使われる |
+| MTU | **50Byte 増える** → **アンダーレイの MTU 不足**で、大きいパケットだけ通らない |
+
+### 構成
+
+| 論点 | 覚えること |
+| --- | --- |
+| VTEP の IP アドレス | **ループバック**に付ける（物理インタフェースの障害に強い） |
+| Leaf-Spine | **Leaf-Spine ＋ ECMP**。STP が要らない。Spine は VTEP ではない |
+| ルートリフレクタ | iBGP のフルメッシュを避けるため、**Spine をルートリフレクタ**にする |
+| エニーキャストゲートウェイ | VM が移動しても、**ゲートウェイが変わらない** |
+| マルチテナント | テナントごとに VNI を分ければ、**IP アドレスが重複してもよい** |
+
+### EVPN
+
+| 論点 | 覚えること |
+| --- | --- |
+| Flood & Learn と EVPN | **Flood & Learn はマルチキャスト（PIM）が必要**。**EVPN は MP-BGP**でフラッディングを減らす |
+| 経路の種類 | **Type 2（MAC/IP）**、**Type 3（BUM の送り先）**、**ARP 抑制** |
+| ESI | 2台の Leaf への LAG に付ける**共通の識別子**。BUM は **DF だけ**が送る |
 
 関連: [vlan-vxlan.md](vlan-vxlan.md) / [lag-stp.md](lag-stp.md) / [../routing/bgp.md](../routing/bgp.md) / [../routing/reliability.md](../routing/reliability.md) / [../routing/multicast.md](../routing/multicast.md)

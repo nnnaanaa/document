@@ -280,15 +280,34 @@ ICMPv6 の **RS / RA / NS / NA / Redirect** を使う。NDP のメッセージ�
 
 ## 試験でよく問われるポイント
 
-- `::` は**1回だけ**。省略形 ⇔ 完全形の変換を確実に
-- **リンクローカル `fe80::/10`**・**ULA `fc00::/7`**・**マルチキャスト `ff00::/8`**・**GUA `2000::/3`**
-- **Modified EUI-64**: `fffe` を挟む＋**先頭バイトの U/L ビット反転（+2）**
-- **ARP の代わりは ICMPv6 の NS / NA**（要請ノードマルチキャスト宛て）
-- **DAD**: 送信元 `::` の NS。NA が返れば重複
-- **RA の M / O フラグ**と、**DHCPv6 ではデフォルトゲートウェイを配れない**こと
-- **ルータはフラグメントしない** → **Packet Too Big（ICMPv6 タイプ2）** と PMTUD。最小 MTU 1280
-- **ヘッダ 40Byte 固定、チェックサムなし、Hop Limit、Flow Label**
-- **NAT64/DNS64**（`64:ff9b::/96`）、**DS-Lite / MAP-E**（IPv4 over IPv6）
-- **OSPFv3 はリンクローカルで隣接**、RIPng は UDP 521、DHCPv6 は UDP 546/547
+### アドレス
+
+| 論点 | 覚えること |
+| --- | --- |
+| 省略の書き方 | `::` は**1回だけ**。省略形 ⇔ 完全形の変換を確実に |
+| アドレスの種類 | **リンクローカル `fe80::/10`**、**ULA `fc00::/7`**、**マルチキャスト `ff00::/8`**、**GUA `2000::/3`** |
+| Modified EUI-64 | `fffe` を挟む ＋ **先頭バイトの U/L ビット反転（+2）** |
+
+### NDP・アドレスの設定
+
+| 論点 | 覚えること |
+| --- | --- |
+| ARP の代わり | **ICMPv6 の NS / NA**（要請ノードマルチキャスト宛て） |
+| DAD | 送信元 `::` の NS。NA が返れば重複 |
+| RA の M / O フラグ | M / O フラグで DHCPv6 の使い方を指示する。**DHCPv6 ではデフォルトゲートウェイを配れない** |
+
+### ヘッダ・MTU
+
+| 論点 | 覚えること |
+| --- | --- |
+| ヘッダ | **40Byte 固定**、**チェックサムなし**、**Hop Limit**、**Flow Label** |
+| フラグメント | **ルータはフラグメントしない** → **Packet Too Big（ICMPv6 タイプ2）**と PMTUD。最小 MTU 1280 |
+
+### 移行技術・プロトコル
+
+| 論点 | 覚えること |
+| --- | --- |
+| 移行技術 | **NAT64/DNS64**（`64:ff9b::/96`）、**DS-Lite / MAP-E**（IPv4 over IPv6） |
+| IPv6 版のプロトコル | **OSPFv3 はリンクローカルで隣接**、RIPng は UDP 521、DHCPv6 は UDP 546/547 |
 
 関連: [subnet-cheatsheet.md](subnet-cheatsheet.md) / [../routing/igp.md](../routing/igp.md) / [../routing/multicast.md](../routing/multicast.md) / [../protocol/dhcp.md](../protocol/dhcp.md)
