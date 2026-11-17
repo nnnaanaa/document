@@ -85,6 +85,13 @@
 ## 接続の流れ
 
 ```mermaid
+---
+config:
+  sequence:
+    width: 110
+    actorMargin: 40
+    messageMargin: 30
+---
 sequenceDiagram
   participant T as 端末
   participant AP as AP
