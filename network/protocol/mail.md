@@ -133,7 +133,7 @@ config:
 sequenceDiagram
   participant S as 送信側のサーバ
   participant R as 受信側のサーバ
-  participant D as DNS
+  participant D as DNS（example.jp<br>の権威 DNS）
   S->>R: MAIL FROM: a@example.jp
   R->>D: example.jp の TXT は？
   D->>R: SPF レコード
