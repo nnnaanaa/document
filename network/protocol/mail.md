@@ -24,11 +24,11 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  A["MUA<br>送信者の<br>メールソフト"] -- "SMTP" --> B["MTA<br>送信側"]
-  B -- "SMTP" --> C["MTA<br>受信側"]
+  A["MUA<br>（送信者）"] -- "SMTP" --> B["MTA<br>（送信側）"]
+  B -- "SMTP" --> C["MTA<br>（受信側）"]
   C --> D["MDA"]
   D --> E[("メール<br>ボックス")]
-  E -- "POP3<br>IMAP" --> F["MUA<br>受信者の<br>メールソフト"]
+  E -- "POP3・IMAP" --> F["MUA<br>（受信者）"]
 ```
 
 - MDA は**メールボックスに入れる**まで。MUA がメールボックスから**取り出す**のは POP3・IMAP（**送る向きは SMTP、取り出す向きは POP3・IMAP**）
