@@ -34,7 +34,7 @@ flowchart TB
     D["MDA"] --> E[("メール<br>ボックス")]
     E -- "POP3・IMAP" --> F["MUA<br>（受信者）"]
   end
-  C --> D
+  S --> R
 ```
 
 - MDA は**メールボックスに入れる**まで。MUA がメールボックスから**取り出す**のは POP3・IMAP（**送る向きは SMTP、取り出す向きは POP3・IMAP**）
