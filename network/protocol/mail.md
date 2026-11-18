@@ -154,6 +154,15 @@ sequenceDiagram
 - **外部のサービスから自社ドメインのメールを送る**ときは、そのサービスの送信サーバを **SPF レコードに追加**する（`include`）。追加しないと、受信側で SPF が失敗する
 - SPF が見るのは**エンベロープ From**。**ヘッダ From が偽られていても、SPF は合格する**ことがある
 
+例）攻撃者が自分のドメイン **evil.example** を取得し、その SPF レコードに自分のサーバを登録したうえで、次のように送る
+
+| 部分 | 中身 | 受信側の判定 |
+| --- | --- | --- |
+| エンベロープ From（MAIL FROM） | attacker@**evil.example** | **SPF は合格**（evil.example のサーバから正しく送られている） |
+| ヘッダ From（利用者に見える） | ○○銀行 <info@**bank.example**> | SPF は**見ていない** → 銀行からのメールに見える |
+
+- **DMARC** なら、SPF で確かめた **evil.example** と、ヘッダ From の **bank.example** が**一致しない**ので不合格 → **bank.example の DMARC レコード**（例: p=reject）に従って拒否できる
+
 ### DKIM
 
 1. 送信側のメールサーバが、ヘッダと本文から作ったハッシュ値に**秘密鍵で署名**し、**DKIM-Signature ヘッダ**として付ける
