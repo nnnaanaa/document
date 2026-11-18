@@ -171,6 +171,28 @@ sequenceDiagram
 
 例）`sel1._domainkey.example.jp. IN TXT "v=DKIM1; k=rsa; p=（公開鍵）"`
 
+**DKIM-Signature ヘッダの例**
+
+```
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+    d=example.jp; s=sel1; t=1763450000;
+    h=from:to:subject:date:message-id;
+    bh=2jUSOH9NhtVGCQWNr9BrIAPreKQjO6Sn7XIkfJVOzv8=;
+    b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZ...
+From: 田中 <tanaka@example.jp>
+To: 鈴木 <suzuki@example.com>
+Subject: 会議の件
+```
+
+| タグ | 意味 |
+| --- | --- |
+| **d=** | **署名したドメイン**（DMARC では、これがヘッダ From のドメインと一致するかを見る） |
+| **s=** | **セレクタ**（どの鍵で署名したか）。d= と組み合わせて、公開鍵を置く DNS の名前（sel1._domainkey.example.jp）が決まる |
+| **h=** | **署名の対象にしたヘッダ**（From、To、Subject など） |
+| **bh=** | **本文のハッシュ値**。本文が書き換わると合わなくなる |
+| **b=** | **署名そのもの**。h= のヘッダと bh= を、秘密鍵で署名した値 |
+| a= / c= / t= | 署名の方式 / 空白や改行の扱い / 署名した時刻 |
+
 - **セレクタ**は鍵の名前。鍵を入れ替えるときや、送信サーバごとに鍵を分けるときに使う
 - 署名はメール自体に付いているので、**転送されても検証できる**（SPF との違い）
 
