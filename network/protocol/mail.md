@@ -23,12 +23,18 @@ flowchart LR
 | ④ | 受信者のメールソフトが、メールサーバから受け取る | **POP3** または **IMAP** |
 
 ```mermaid
-flowchart LR
-  A["MUA<br>（送信者）"] -- "SMTP" --> B["MTA<br>（送信側）"]
-  B -- "SMTP" --> C["MTA<br>（受信側）"]
-  C --> D["MDA"]
-  D --> E[("メール<br>ボックス")]
-  E -- "POP3・IMAP" --> F["MUA<br>（受信者）"]
+flowchart TB
+  subgraph S["送る"]
+    direction LR
+    A["MUA<br>（送信者）"] -- "SMTP" --> B["MTA<br>（送信側）"]
+    B -- "SMTP" --> C["MTA<br>（受信側）"]
+  end
+  subgraph R["受け取る"]
+    direction RL
+    D["MDA"] --> E[("メール<br>ボックス")]
+    E -- "POP3・IMAP" --> F["MUA<br>（受信者）"]
+  end
+  C --> D
 ```
 
 - MDA は**メールボックスに入れる**まで。MUA がメールボックスから**取り出す**のは POP3・IMAP（**送る向きは SMTP、取り出す向きは POP3・IMAP**）
