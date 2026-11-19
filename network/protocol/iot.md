@@ -45,7 +45,7 @@ IoT では、**電池で長く動く小さな機器**が、**少ないデータ�
 
 ```mermaid
 flowchart LR
-  P["センサー<br>（Publisher）"] -- "PUBLISH<br>topic: temp/room1" --> B["ブローカ"]
+  P["センサー<br>（Publisher）"] -- "PUBLISH" --> B["ブローカ"]
   B -- "PUBLISH" --> S1["アプリ<br>（Subscriber）"]
   B -- "PUBLISH" --> S2["アプリ<br>（Subscriber）"]
 ```
