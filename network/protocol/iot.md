@@ -12,9 +12,56 @@ IoT では、**電池で長く動く小さな機器**が、**少ないデータ�
 | 無線（つなぎ方） | **LPWA**（LTE-M、NB-IoT、LoRaWAN、Sigfox）、Wi-Fi、Bluetooth Low Energy、Zigbee |
 | アプリケーション（やり取りの形） | **MQTT**（TCP、Publish/Subscribe）、**CoAP**（UDP、REST） |
 
+### 全体像：データがどう流れるか
+
+```mermaid
+flowchart LR
+  subgraph F["現場"]
+    direction TB
+    M["メーター<br>センサー"]
+  end
+  subgraph N["無線（LPWA）"]
+    direction TB
+    B1["基地局<br>（通信事業者）"]
+    G["ゲートウェイ<br>（自分で設置）"]
+  end
+  subgraph C["クラウド"]
+    direction TB
+    K["MQTT ブローカ<br>CoAP サーバ"]
+  end
+  M -- "LTE-M<br>NB-IoT" --> B1
+  M -- "LoRaWAN" --> G
+  B1 --> K
+  G --> K
+  K --> A["アプリ<br>（監視画面）"]
+```
+
+| 区間 | 使う技術 | ポイント |
+| --- | --- | --- |
+| 機器 → 基地局 | **LPWA**（無線） | 電池で何年も動かすので、**少しだけ・たまに**送る |
+| 基地局 → クラウド | インターネットや閉域網 | ふつうの IP 通信 |
+| 機器 ⇔ クラウドのやり取り | **MQTT** または **CoAP** | HTTP より**軽い**プロトコル |
+
+- IoT の問題は、「**どの無線でつなぐか**」と「**どのプロトコルでやり取りするか**」の2段に分けて考える
+
 ## LPWA（Low Power Wide Area）
 
 **低消費電力**で、**数 km〜十数 km** 届く無線。速度は遅い（数十 kbps〜数百 kbps 程度）が、メーターやセンサーには十分。
+
+```mermaid
+flowchart LR
+  subgraph S["セルラー系"]
+    direction TB
+    S1["機器<br>（SIM あり）"] --> S2["通信事業者の<br>LTE 基地局"]
+  end
+  subgraph U["非セルラー系"]
+    direction TB
+    U1["機器"] --> U2["920MHz の<br>ゲートウェイ"]
+  end
+  S ~~~ U
+```
+
+- セルラー系は**携帯電話の網を借りる**、非セルラー系は**自分で（または専門の事業者が）無線の網を作る**
 
 | 分類 | 方式 | 周波数 | 特徴 |
 | --- | --- | --- | --- |
@@ -45,10 +92,18 @@ IoT では、**電池で長く動く小さな機器**が、**少ないデータ�
 
 ```mermaid
 flowchart LR
-  P["センサー<br>（Publisher）"] -- "PUBLISH" --> B["ブローカ"]
-  B -- "PUBLISH" --> S1["アプリ<br>（Subscriber）"]
-  B -- "PUBLISH" --> S2["アプリ<br>（Subscriber）"]
+  P1["温度センサー"] -- "PUBLISH<br>temp/room1" --> B["ブローカ"]
+  P2["湿度センサー"] -- "PUBLISH<br>humi/room1" --> B
+  B -- "temp/# を購読" --> A1["空調アプリ"]
+  B -- "+/room1 を購読" --> A2["監視アプリ"]
 ```
+
+| ワイルドカード（購読するときだけ使える） | 意味 | 図の例 |
+| --- | --- | --- |
+| **#** | それより下を**すべて** | temp/# → temp/room1、temp/room2 … |
+| **+** | **1階層だけ**、何でもよい | +/room1 → temp/room1、humi/room1 |
+
+- メールは「**相手を指定して**送る」。MQTT は「**話題（トピック）を指定して**送り、その話題を購読している人に届く」
 
 | 項目 | 内容 |
 | --- | --- |
@@ -87,13 +142,35 @@ flowchart LR
 
 ### QoS（届け方の保証）
 
+```mermaid
+---
+config:
+  sequence:
+    width: 110
+    actorMargin: 60
+---
+sequenceDiagram
+  participant P as 送り手
+  participant B as ブローカ
+  Note over P,B: QoS 1
+  P->>B: PUBLISH
+  B-->>P: PUBACK
+  Note over P,B: QoS 2
+  P->>B: PUBLISH
+  B-->>P: PUBREC（受け取った）
+  P->>B: PUBREL（解放してよい）
+  B-->>P: PUBCOMP（完了）
+```
+
 | QoS | 保証 | やり取り |
 | --- | --- | --- |
 | **0** | **最大1回**（届かないことがある） | PUBLISH だけ |
 | **1** | **最低1回**（重複することがある） | PUBLISH → **PUBACK** |
 | **2** | **ちょうど1回**（重複も欠落もない） | PUBLISH → **PUBREC** → **PUBREL** → **PUBCOMP** |
 
-- QoS が高いほど**確実だが、やり取りが増える**（電池・通信量を使う）
+- **QoS 1 で重複する理由**: PUBACK が来なければ再送する。**PUBACK だけが消える**と、同じメッセージを2回送ってしまう
+- **QoS 2 で重複しない理由**: 「受け取った（PUBREC）」→「もう再送しないので記録を消してよい（PUBREL）」→「消した（PUBCOMP）」の**2往復**で、重複を防ぐ
+- QoS が高いほど**確実だが、やり取りが増える**（電池・通信量を使う）。例: 温度の定期送信は QoS 0、課金や制御の命令は QoS 1・2
 - QoS 1・2 では、どのメッセージへの応答かを**パケット ID** で対応させる
 
 | そのほかの機能 | 内容 |
@@ -119,6 +196,24 @@ flowchart LR
 | **NON**（Non-confirmable） | 確認が**不要**なメッセージ（センサー値の定期送信など） |
 | **ACK** | CON を受け取ったことの確認。**応答（データ）を ACK に載せて返せる**（ピギーバック） |
 | RST | 処理できないメッセージへの返事 |
+
+```mermaid
+---
+config:
+  sequence:
+    width: 110
+    actorMargin: 60
+---
+sequenceDiagram
+  participant C as クライアント
+  participant S as サーバ（機器）
+  C->>S: CON GET /temp（ID 0x7d34）
+  S-->>C: ACK（ID 0x7d34）2.05 Content「22.5℃」
+```
+
+- HTTP と同じく、**GET でリソース（/temp）を取りに行く**
+- 応答のデータ（2.05 Content）を **ACK に載せて一度に返す**（ピギーバック）→ 往復が1回で済む
+- ACK の**メッセージ ID** が CON と同じなので、どの要求への返事か分かる
 
 | しくみ | 内容 |
 | --- | --- |
@@ -172,6 +267,22 @@ sequenceDiagram
 - コードの形は「**クラス.詳細**」。2 は成功、4 はクライアントの誤り、5 はサーバの誤り（HTTP の 201・404・500 と同じ考え方）
 
 ## MQTT・CoAP・HTTP の比較
+
+```mermaid
+flowchart LR
+  subgraph MQ["MQTT"]
+    direction TB
+    m1["機器"] -- "送る（PUBLISH）" --> mb["ブローカ"]
+    mb -- "配る" --> ma["アプリ"]
+  end
+  subgraph CO["CoAP"]
+    direction TB
+    ca["アプリ"] -- "取りに行く（GET）" --> cm["機器"]
+  end
+  MQ ~~~ CO
+```
+
+- MQTT は機器が**送り、ブローカが配る**。CoAP はアプリが機器に**取りに行く・命令する**
 
 | 項目 | **MQTT** | **CoAP** | HTTP |
 | --- | --- | --- | --- |
