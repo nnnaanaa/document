@@ -16,24 +16,11 @@ IoT では、**電池で長く動く小さな機器**が、**少ないデータ�
 
 ```mermaid
 flowchart LR
-  subgraph F["現場"]
-    direction TB
-    M["メーター<br>センサー"]
-  end
-  subgraph N["無線（LPWA）"]
-    direction TB
-    B1["基地局<br>（通信事業者）"]
-    G["ゲートウェイ<br>（自分で設置）"]
-  end
-  subgraph C["クラウド"]
-    direction TB
-    K["MQTT ブローカ<br>CoAP サーバ"]
-  end
-  M -- "LTE-M<br>NB-IoT" --> B1
-  M -- "LoRaWAN" --> G
-  B1 --> K
+  M["メーター<br>センサー"] -- "LTE-M<br>NB-IoT" --> B1["基地局"]
+  M -- "LoRaWAN" --> G["ゲート<br>ウェイ"]
+  B1 --> K["ブローカ<br>サーバ"]
   G --> K
-  K --> A["アプリ<br>（監視画面）"]
+  K --> A["アプリ"]
 ```
 
 | 区間 | 使う技術 | ポイント |
@@ -42,6 +29,7 @@ flowchart LR
 | 基地局 → クラウド | インターネットや閉域網 | ふつうの IP 通信 |
 | 機器 ⇔ クラウドのやり取り | **MQTT** または **CoAP** | HTTP より**軽い**プロトコル |
 
+- 基地局は通信事業者のもの（LTE-M・NB-IoT）、ゲートウェイは自分で置くもの（LoRaWAN）。ブローカ・サーバはクラウドに置く
 - IoT の問題は、「**どの無線でつなぐか**」と「**どのプロトコルでやり取りするか**」の2段に分けて考える
 
 ## LPWA（Low Power Wide Area）
@@ -270,16 +258,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  subgraph MQ["MQTT"]
-    direction TB
-    m1["機器"] -- "送る（PUBLISH）" --> mb["ブローカ"]
-    mb -- "配る" --> ma["アプリ"]
-  end
-  subgraph CO["CoAP"]
-    direction TB
-    ca["アプリ"] -- "取りに行く（GET）" --> cm["機器"]
-  end
-  MQ ~~~ CO
+  m1["機器"] -- "MQTT で送る<br>（PUBLISH）" --> mb["ブローカ"] -- "配る" --> ma["アプリ"]
+  ca["アプリ"] -- "CoAP で取りに行く<br>（GET）" --> cm["機器"]
 ```
 
 - MQTT は機器が**送り、ブローカが配る**。CoAP はアプリが機器に**取りに行く・命令する**
