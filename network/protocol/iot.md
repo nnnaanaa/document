@@ -38,15 +38,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  subgraph S["セルラー系"]
-    direction TB
-    S1["機器<br>（SIM あり）"] --> S2["通信事業者の<br>LTE 基地局"]
-  end
-  subgraph U["非セルラー系"]
-    direction TB
-    U1["機器"] --> U2["920MHz の<br>ゲートウェイ"]
-  end
-  S ~~~ U
+  S1["機器<br>（SIM あり）"] -- "セルラー系" --> S2["通信事業者の<br>LTE 基地局"]
+  U1["機器"] -- "非セルラー系" --> U2["920MHz の<br>ゲートウェイ"]
 ```
 
 - セルラー系は**携帯電話の網を借りる**、非セルラー系は**自分で（または専門の事業者が）無線の網を作る**
@@ -131,23 +124,9 @@ flowchart LR
 ### QoS（届け方の保証）
 
 ```mermaid
----
-config:
-  sequence:
-    width: 110
-    actorMargin: 60
----
-sequenceDiagram
-  participant P as 送り手
-  participant B as ブローカ
-  Note over P,B: QoS 1
-  P->>B: PUBLISH
-  B-->>P: PUBACK
-  Note over P,B: QoS 2
-  P->>B: PUBLISH
-  B-->>P: PUBREC（受け取った）
-  P->>B: PUBREL（解放してよい）
-  B-->>P: PUBCOMP（完了）
+flowchart LR
+  a1["QoS 1"] --- p1["PUBLISH"] --> k1["PUBACK"]
+  a2["QoS 2"] --- p2["PUBLISH"] --> r2["PUBREC<br>受け取った"] --> l2["PUBREL<br>解放してよい"] --> c2["PUBCOMP<br>完了"]
 ```
 
 | QoS | 保証 | やり取り |
@@ -156,6 +135,7 @@ sequenceDiagram
 | **1** | **最低1回**（重複することがある） | PUBLISH → **PUBACK** |
 | **2** | **ちょうど1回**（重複も欠落もない） | PUBLISH → **PUBREC** → **PUBREL** → **PUBCOMP** |
 
+- PUBLISH・PUBREL は**送り手から**、PUBACK・PUBREC・PUBCOMP は**受け手（ブローカ）から**送る
 - **QoS 1 で重複する理由**: PUBACK が来なければ再送する。**PUBACK だけが消える**と、同じメッセージを2回送ってしまう
 - **QoS 2 で重複しない理由**: 「受け取った（PUBREC）」→「もう再送しないので記録を消してよい（PUBREL）」→「消した（PUBCOMP）」の**2往復**で、重複を防ぐ
 - QoS が高いほど**確実だが、やり取りが増える**（電池・通信量を使う）。例: 温度の定期送信は QoS 0、課金や制御の命令は QoS 1・2
@@ -214,23 +194,11 @@ sequenceDiagram
 ### 再送と指数バックオフ
 
 ```mermaid
----
-config:
-  sequence:
-    width: 110
-    actorMargin: 60
----
-sequenceDiagram
-  participant C as クライアント
-  participant S as サーバ
-  C-xS: CON（ID 0x01）
-  Note over C: 約2秒待つ
-  C-xS: CON（ID 0x01）再送
-  Note over C: 約4秒待つ（倍）
-  C->>S: CON（ID 0x01）再送
-  S-->>C: ACK（ID 0x01）
+flowchart LR
+  c1["CON<br>× 失われる"] -- "約2秒" --> c2["CON 再送<br>× 失われる"] -- "約4秒（倍）" --> c3["CON 再送"] --> a["ACK"]
 ```
 
+- 3つの CON は、どれも**同じメッセージ ID**（例: 0x01）。矢印のラベルは、次に再送するまでの待ち時間
 - UDP は届いたか分からないので、**CoAP 自身が再送**する
 - 待ち時間を**再送のたびに倍に延ばす**（**指数バックオフ**）→ 混雑しているときに、再送で網をさらに混ませない
 - 再送しても**メッセージ ID は同じ** → サーバに2回届いても**重複**と分かり、二重に処理しない
