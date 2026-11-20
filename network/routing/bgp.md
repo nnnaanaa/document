@@ -45,8 +45,8 @@ AS_PATHプリペンドは、BGPのパスアトリビュートの操作方法の�
 
 | 回避方法 | 内容 |
 | --- | --- |
-| **as-override** | 広報する経路のAS_PATH内にBGPネイバーのAS番号が含まれる場合、**自AS番号に書き換えて広報**（`neighbor x.x.x.x as-override`） |
-| **allow-as-in** | 受信する経路のAS_PATH内に自AS番号が含まれる場合、それをループと判断せずに**受け入れる**（`neighbor y.y.y.y allowas-in`） |
+| **as-override** | 広報する経路のAS_PATH内にBGPネイバーのAS番号が含まれる場合、**自AS番号に書き換えて広報** |
+| **allow-as-in** | 受信する経路のAS_PATH内に自AS番号が含まれる場合、それをループと判断せずに**受け入れる** |
 
 ## AS番号の分類
 

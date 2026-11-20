@@ -1,5 +1,5 @@
 # MONITORING.md
-## ネットワークの監視（LLDP / SNMP / Syslog / NetFlow・IPFIX）
+## ネットワークの監視（LLDP / SNMP / Syslog / IPFIX）
 
 ***
 
@@ -19,9 +19,9 @@ LLDPの情報を基にネットワークマップを作成するような製品�
 | --- | --- | --- |
 | **SNMP** (Simple Network Management Protocol) | ネットワーク経由で**機器の監視や制御**をするためのプロトコル。SNMP Manager が各 SNMP Agent から機器の状態を収集したり、設定変更を適用する | **UDP/161** (Manager → Agent)、**UDP/162** (Agent → Manager) |
 | **Syslog** | ネットワーク経由で**ログを転送**するためのプロトコル。監視対象の機器は Syslog サーバ宛にログを転送する | 一般的には **UDP/514** |
-| **NetFlow / IPFIX** (Internet Protocol Flow Information Export) | ネットワークを流れる**フロー（IP, Protocol, Port 等の組み合わせ）を監視/分析**するためのプロトコル。**コレクタ**に**エクスポーター（一般的にはネットワーク機器）**からのフロー情報を集約する。NetFlow は Cisco によって開発され、その拡張版として IPFIX が標準化された | NetFlow では UDP/9985 が多く、**IPFIX は UDP/4739 or TCP/4739** が多く利用される |
+| **IPFIX** (Internet Protocol Flow Information Export) | ネットワークを流れる**フロー（IP, Protocol, Port 等の組み合わせ）を監視/分析**するためのプロトコル。**コレクタ**に**エクスポーター（一般的にはネットワーク機器）**からのフロー情報を集約する | **IPFIX は UDP/4739 or TCP/4739** が多く利用される |
 
-SNMPとSyslogは機器の監視に特化、NetFlow/IPFIXはフローの監視や分析に特化。
+SNMPとSyslogは機器の監視に特化、IPFIXはフローの監視や分析に特化。
 
 ## SNMP と MIB
 
