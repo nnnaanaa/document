@@ -247,10 +247,12 @@ iBGP ルータが n 台ならフルメッシュのセッション数は **n(n−
 
 ```mermaid
 flowchart LR
-  C["クライアント A"] -- "経路 X" --> R1["RR1<br>クラスター ID 1"]
-  C -- "経路 X" --> R2["RR2<br>クラスター ID 1"]
-  R1 -- "経路 X<br>CLUSTER_LIST: 1" --> R2
+  C["クライアント<br>A"] -- "経路 X" --> R1["RR1<br>ID 1"]
+  C -- "経路 X" --> R2["RR2<br>ID 1"]
+  R1 -- "CLUSTER_LIST<br>1" --> R2
 ```
+
+- 図の ID はクラスター ID（2台とも 1）
 
 1. クライアント A は、経路 X を **RR1 と RR2 の両方**に広告する
 2. RR1 は反射するときに **CLUSTER_LIST に「1」を追加**して、RR2 にも送る
