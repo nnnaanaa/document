@@ -74,7 +74,7 @@ sequenceDiagram
 | **SOA** | ゾーンの管理情報 | **シリアル番号**（更新のたびに増やす）、更新間隔、ネガティブキャッシュの TTL |
 | **PTR** | IP アドレス → ホスト名（**逆引き**） | in-addr.arpa / ip6.arpa |
 | **TXT** | 任意の文字列 | **SPF・DKIM・DMARC** の情報を載せる |
-| **SRV** | サービス → **サーバのホスト名とポート番号** | SIP・Active Directory など |
+| **SRV** | サービス → **サーバのホスト名とポート番号** | SIP、LDAP、Kerberos など |
 
 ### SOA レコードの例
 
