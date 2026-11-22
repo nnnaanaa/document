@@ -3,8 +3,6 @@
 
 ***
 
-メッセージの種類・パスアトリビュートの一覧・ループ回避（as-override / allowas-in）の詳しい説明は [bgp.md](bgp.md) も参照。
-
 ## ひとことで
 
 **BGP-4** は、**AS（自律システム）同士**で経路を交換する **パスベクタ型**のルーティングプロトコル（EGP）。
@@ -111,13 +109,13 @@ LOCAL_PREF を iBGP では送り eBGP では送らない理由は、「通信の
 | OpenSent / OpenConfirm | **OPEN** を交換（AS 番号・BGP ID・ホールドタイム）し、KEEPALIVE を待つ |
 | **Established** | **経路交換ができる状態**。UPDATE を送り合う |
 
-| メッセージ | 用途 |
-| --- | --- |
-| OPEN | セッションの確立（AS 番号・ホールドタイム・BGP ID・機能） |
-| **UPDATE** | 経路の**広告と取り消し（withdraw）** |
-| NOTIFICATION | エラーを知らせて**セッションを切る** |
-| **KEEPALIVE** | 生存確認。**ホールドタイム内に届かないとセッションを切り、その相手から学んだ経路を消す** |
-| ROUTE-REFRESH | 経路の再送を要求（ポリシー変更後などにセッションを切らずに再取得） |
+| タイプ | メッセージ | 用途 |
+| --- | --- | --- |
+| 1 | OPEN | セッションの確立（AS 番号・ホールドタイム・BGP ID・機能） |
+| 2 | **UPDATE** | 経路の**広告と取り消し（withdraw）**。パスアトリビュートはここに載る |
+| 3 | NOTIFICATION | エラーを知らせて**セッションを切る** |
+| 4 | **KEEPALIVE** | 生存確認。**ホールドタイム内に届かないとセッションを切り、その相手から学んだ経路を消す** |
+| 5 | ROUTE-REFRESH | 経路の再送を要求（ポリシー変更後などにセッションを切らずに再取得） |
 
 - タイマー: **ホールドタイム**は双方が提案した値の**小さい方**を使い、**キープアライブはその 1/3 程度**の間隔で送るのが一般的（具体的な値は機器によって異なる）
 - 障害の検知が遅い → **BFD** と組み合わせると1秒未満で切り替えられる（[reliability.md](reliability.md)）
@@ -372,4 +370,4 @@ flowchart LR
 | RTBH と Flowspec の違い | 「RTBH は**宛先ごとすべて**捨てる（正規の通信も止まる）、Flowspec は**条件に合う通信だけ**捨てる」 |
 | 拠点が同じ AS 番号のとき as-override が必要な理由 | 「拠点が**同じ AS 番号**だと、**AS_PATH に自分の AS 番号**がある経路をループと判断して**受け取らない**から」 |
 
-関連: [bgp.md](bgp.md) / [igp.md](igp.md) / [reliability.md](reliability.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [../wan-vpn/mpls.md](../wan-vpn/mpls.md)
+関連: [ospf.md](ospf.md) / [reliability.md](reliability.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [../wan-vpn/mpls.md](../wan-vpn/mpls.md)

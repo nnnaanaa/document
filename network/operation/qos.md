@@ -64,4 +64,4 @@
 | 上位3bit: **優先度ビット** | 優先度制御。値が大きいほど優先度が高い（IP Precedence はこの3bitのみ利用） |
 | 下位3bit: **フラグビット** | 破棄確率制御。値が大きいほど破棄確率が高い |
 
-関連: [../lan/vlan-vxlan.md](../lan/vlan-vxlan.md)（802.1QのPCPフィールド）
+関連: [vxlan.md](../lan/vxlan.md)（802.1QのPCPフィールド）

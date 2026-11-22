@@ -49,9 +49,7 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | [IEEE 802.X 規格一覧](network/lan/ieee802x.md) | 試験に頻出するIEEE802.X規格一覧 |
 | [LAG・STP](network/lan/lag-stp.md) | LAGとSTP(ポート役割/ステータス/RSTP/MSTP) |
 | [L2 冗長化 暗記シート](network/lan/l2-redundancy.md) | ループ・STP/RSTP/MSTP・リンクアグリゲーション・スタックまとめ |
-| [VLAN・VXLAN](network/lan/vlan-vxlan.md) | 802.1QタグVLANとVXLAN/VTEP/EVPN |
 | [VXLAN 暗記シート](network/lan/vxlan.md) | VXLANのヘッダ・MTU・Leaf-Spine・EVPN・ESIまとめ |
-| [無線LAN](network/lan/wifi.md) | Wi-Fi規格・用語・変調/暗号化方式まとめ |
 | [無線LAN 暗記シート](network/lan/wifi-cheatsheet.md) | 規格・チャネル/DFS・CSMA/CA・WPA3/802.1X・WLC・ローミングまとめ |
 
 ## WAN・VPN
@@ -68,9 +66,7 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 
 | シート | 内容 |
 | --- | --- |
-| [RIP・OSPF](network/routing/igp.md) | RIPとOSPFのしくみ・エリア・LSA |
 | [OSPF 暗記シート](network/routing/ospf.md) | OSPFのコスト・ネイバー・DR/BDR・エリア・LSA・集約まとめ |
-| [BGP](network/routing/bgp.md) | BGPメッセージ・パスアトリビュート・AS番号 |
 | [BGP 暗記シート](network/routing/bgp-cheatsheet.md) | iBGP/eBGP・最適経路の選択・経路制御・セキュリティまとめ |
 | [ECMP・BFD](network/routing/reliability.md) | ECMPによる負荷分散とBFDの死活監視 |
 | [マルチキャスト 暗記シート](network/routing/multicast.md) | アドレス・MAC対応・IGMP・IGMPスヌーピング・PIM・RPFまとめ |
@@ -80,7 +76,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | シート | 内容 |
 | --- | --- |
 | [VRRP 暗記シート](network/redundancy/vrrp.md) | 仮想IP/MAC・マスタ選出・切替え・トラッキング・プリエンプトまとめ |
-| [ロードバランサー](network/redundancy/load-balancer.md) | LBの基本機能・セッション維持・DSR・GSLB |
 | [負荷分散・プロキシ 暗記シート](network/redundancy/lb-proxy.md) | セッション維持・ヘルスチェック・DSR・GSLB・プロキシ・CDNまとめ |
 
 ## 運用管理
@@ -88,7 +83,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | シート | 内容 |
 | --- | --- |
 | [QoS](network/operation/qos.md) | 帯域/優先度制御・DiffServ・CoS/DSCP |
-| [監視（SNMP・Syslog等）](network/operation/monitoring.md) | LLDP・SNMP(MIB/メッセージ/Version)・Syslog・IPFIX |
 | [運用・監視 暗記シート](network/operation/ops-monitoring.md) | SNMP・Syslog・NTP・フロー情報・ミラーポート・障害の切り分けまとめ |
 | [計算問題 暗記シート](network/operation/calculation.md) | 伝送時間・稼働率・待ち行列・呼量・VoIP帯域などの公式と例題 |
 
@@ -96,11 +90,9 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 
 | シート | 内容 |
 | --- | --- |
-| [TCP](network/protocol/tcp.md) | TCPヘッダ・フラグ・再送/ウィンドウ制御 |
 | [TCP・QoS 暗記シート](network/protocol/tcp-qos.md) | 再送・フロー/輻輳制御・MSS・マーキング・シェーピングまとめ |
 | [UDP](network/protocol/udp.md) | UDPヘッダ構造(8Byte固定) |
 | [ウェルノウンポート](network/protocol/well-known-ports.md) | 代表的なポート番号と用途の一覧 |
-| [DHCP](network/protocol/dhcp.md) | DHCPの仕組みと4つのメッセージ |
 | [DHCP・NAT 暗記シート](network/protocol/dhcp-nat.md) | 4つのメッセージ・リレー・スヌーピング・NAPT・ヘアピンNATまとめ |
 | [DNS 暗記シート](network/protocol/dns.md) | 名前解決・レコード・TTL・構成・DNSへの攻撃と対策まとめ |
 | [HTTP](network/protocol/http.md) | ステータスコード・ヘッダー・認証方式 |

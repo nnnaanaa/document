@@ -196,4 +196,4 @@ TCP のスループットの上限 ≒ ウィンドウサイズ（ビット）÷
 - 答えの**単位**（秒・ミリ秒、ビット・バイト、%）を問題文に合わせる
 - 台数・回線数・パケット数は**切り上げ**
 
-関連: [../ip-address/subnet-cheatsheet.md](../ip-address/subnet-cheatsheet.md) / [monitoring.md](monitoring.md) / [qos.md](qos.md) / [../protocol/voip.md](../protocol/voip.md) / [../protocol/tcp.md](../protocol/tcp.md)
+関連: [../ip-address/subnet-cheatsheet.md](../ip-address/subnet-cheatsheet.md) / [ops-monitoring.md](ops-monitoring.md) / [qos.md](qos.md) / [../protocol/voip.md](../protocol/voip.md) / [tcp-qos.md](../protocol/tcp-qos.md)

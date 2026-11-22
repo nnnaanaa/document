@@ -401,4 +401,4 @@ sequenceDiagram
 | DAD で NA を受信したときの判断 | 「そのアドレスは**ほかのノードが使用中**（重複）なので、**使用しない**」 |
 | L2SW で RA Guard を使う目的 | 「**不正な RA** によって、端末の**デフォルトゲートウェイを乗っ取られる**のを防ぐ」 |
 
-関連: [subnet-cheatsheet.md](subnet-cheatsheet.md) / [../routing/igp.md](../routing/igp.md) / [../routing/multicast.md](../routing/multicast.md) / [../protocol/dhcp.md](../protocol/dhcp.md)
+関連: [subnet-cheatsheet.md](subnet-cheatsheet.md) / [ospf.md](../routing/ospf.md) / [../routing/multicast.md](../routing/multicast.md) / [dhcp-nat.md](../protocol/dhcp-nat.md)

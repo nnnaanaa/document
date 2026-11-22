@@ -196,4 +196,4 @@ flowchart LR
 | 感染 PC を見つけたときの最初の対応 | **ネットワークから切り離す**（拡散・情報の持ち出しを止める） |
 | セキュリティの面でセグメントを分ける理由 | マルウェアの**内部での拡散範囲を限定**するため |
 
-関連: [auth-pki.md](auth-pki.md) / [../protocol/dns.md](../protocol/dns.md) / [../protocol/http.md](../protocol/http.md) / [../protocol/mail-security.md](../protocol/mail-security.md) / [../operation/monitoring.md](../operation/monitoring.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)
+関連: [auth-pki.md](auth-pki.md) / [../protocol/dns.md](../protocol/dns.md) / [../protocol/http.md](../protocol/http.md) / [../protocol/mail-security.md](../protocol/mail-security.md) / [ops-monitoring.md](../operation/ops-monitoring.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)

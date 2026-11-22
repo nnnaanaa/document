@@ -28,4 +28,4 @@
 * BFDは**50ミリ秒等、かなり短い間隔**で死活監視用の通信が可能で、高速に障害を検知
 * **死活監視のオーバヘッドが少なくなる**よう、シンプルにプロトコルが設計されている
 
-関連: [igp.md](igp.md) / [bgp.md](bgp.md)
+関連: [ospf.md](ospf.md) / [bgp-cheatsheet.md](bgp-cheatsheet.md)

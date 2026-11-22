@@ -193,4 +193,4 @@ flowchart LR
 | SaaS の利用増で NAPT のセッションが張れなくなる理由 | 「1つのグローバル IP アドレスで使える**ポート番号を使い切った**から」 |
 | NAPT のセッションが張れなくなったときの対策 | 「NAPT に使う**グローバル IP アドレスを増やす**」 |
 
-関連: [dhcp.md](dhcp.md) / [dns.md](dns.md) / [../security/security.md](../security/security.md)（NAT と FW） / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)（NAT トラバーサル） / [../ip-address/ipv6.md](../ip-address/ipv6.md)（SLAAC・DHCPv6）
+関連: [dns.md](dns.md) / [../security/security.md](../security/security.md)（NAT と FW） / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)（NAT トラバーサル） / [../ip-address/ipv6.md](../ip-address/ipv6.md)（SLAAC・DHCPv6）

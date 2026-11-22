@@ -3,8 +3,6 @@
 
 ***
 
-基本のしくみ（VNI・VTEP・Flood & Learn・EVPN の概要）は [vlan-vxlan.md](vlan-vxlan.md) も参照。
-
 ## ひとことで
 
 **VXLAN**（RFC 7348）は、**L2 フレームを UDP/IP でカプセル化して、L3 ネットワーク（アンダーレイ）の上に仮想的な L2 ネットワーク（オーバーレイ）を作る**トンネリング技術。
@@ -480,4 +478,4 @@ flowchart TB
 | エニーキャストゲートウェイの利点（VM の移動） | 「**全 Leaf が同じゲートウェイ**を持つので、**VM が移動しても**ゲートウェイを変えなくてよい」 |
 | 2台の Leaf に同じ ESI を設定する理由 | 「2台の Leaf への接続が**同じサーバへのもの**だと識別させ、**リンクアグリゲーション**を組めるようにするため」 |
 
-関連: [vlan-vxlan.md](vlan-vxlan.md) / [lag-stp.md](lag-stp.md) / [../routing/bgp.md](../routing/bgp.md) / [../routing/reliability.md](../routing/reliability.md) / [../routing/multicast.md](../routing/multicast.md)
+関連: [lag-stp.md](lag-stp.md) / [bgp-cheatsheet.md](../routing/bgp-cheatsheet.md) / [../routing/reliability.md](../routing/reliability.md) / [../routing/multicast.md](../routing/multicast.md)

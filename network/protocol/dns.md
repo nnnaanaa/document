@@ -197,4 +197,4 @@ sequenceDiagram
 | キャッシュポイズニングの対策 | 問合せの**送信元ポート番号をランダムにする**、DNSSEC で応答を検証する |
 | DNS で接続先の拠点を切り替える方法と注意点 | **DNS の応答を切替え先の IP アドレスに変える**。TTL の時間だけ切替えが遅れる |
 
-関連: [mail-security.md](mail-security.md) / [dhcp.md](dhcp.md) / [../ip-address/ipv6.md](../ip-address/ipv6.md) / [../redundancy/load-balancer.md](../redundancy/load-balancer.md)
+関連: [mail-security.md](mail-security.md) / [dhcp-nat.md](dhcp-nat.md) / [../ip-address/ipv6.md](../ip-address/ipv6.md) / [lb-proxy.md](../redundancy/lb-proxy.md)

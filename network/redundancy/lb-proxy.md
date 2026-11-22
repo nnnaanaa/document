@@ -220,4 +220,4 @@ sequenceDiagram
 | プロキシで HTTPS を検査するための PC 側の準備 | 「**プロキシのルート証明書を PC に信頼済みとして登録**する」 |
 | プロキシ以外の外向き通信を FW で止める理由 | 「マルウェアなどが**プロキシを通らずに外部と通信する**のを防ぐため」 |
 
-関連: [load-balancer.md](load-balancer.md) / [vrrp.md](vrrp.md) / [../protocol/http.md](../protocol/http.md) / [../protocol/dns.md](../protocol/dns.md) / [../security/auth-pki.md](../security/auth-pki.md)
+関連: [vrrp.md](vrrp.md) / [../protocol/http.md](../protocol/http.md) / [../protocol/dns.md](../protocol/dns.md) / [../security/auth-pki.md](../security/auth-pki.md)

@@ -105,7 +105,7 @@ flowchart LR
 
 | 方式 | 特徴 |
 | --- | --- |
-| **IPFIX** | フロー情報をコレクタへ送る**標準規格** |
+| **IPFIX** | フロー情報をコレクタへ送る**標準規格**（UDP / TCP **4739**）。送る側の機器を**エクスポータ**、集める側を**コレクタ**という |
 | sFlow | パケットを**一定の割合で抜き出して**（サンプリング）送る。機器の負荷が小さい |
 
 - SNMP で分かるのは**インタフェース全体の通信量**まで。**「誰が、どこと、何の通信で」帯域を使っているか**は、フロー情報で調べる
@@ -124,7 +124,7 @@ flowchart LR
 
 ## LLDP
 
-**隣につながっている機器の情報**（機器名、ポート、VLAN など）を、L2 で知らせ合うプロトコル（IEEE 802.1AB）。
+**隣につながっている機器の情報**（機器名、ポート、VLAN など）を、L2 で知らせ合うプロトコル（IEEE 802.1AB）。宛先は**マルチキャスト MAC アドレス 01:80:C2:00:00:0E** で、スイッチを越えて転送されない。
 
 - **どのポートに何がつながっているか**を、配線をたどらずに確認できる → 構成図との照合、配線の誤りの発見
 - IP 電話機などに、VLAN や PoE の情報を伝える拡張（LLDP-MED）もある
@@ -227,4 +227,4 @@ flowchart LR
 | 管理用の通信を別のネットワークにする理由 | 「利用者の通信に障害があっても、**機器に接続して調べられる**ようにするため」 |
 | 冗長構成の機器を片方ずつ更新する理由 | 「作業中も**もう片方で通信を続け**、問題があればすぐに戻せるようにするため」 |
 
-関連: [monitoring.md](monitoring.md) / [qos.md](qos.md) / [calculation.md](calculation.md) / [../protocol/well-known-ports.md](../protocol/well-known-ports.md) / [../lan/l2-redundancy.md](../lan/l2-redundancy.md) / [../security/security.md](../security/security.md)
+関連: [qos.md](qos.md) / [calculation.md](calculation.md) / [../protocol/well-known-ports.md](../protocol/well-known-ports.md) / [../lan/l2-redundancy.md](../lan/l2-redundancy.md) / [../security/security.md](../security/security.md)
