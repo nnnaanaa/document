@@ -321,7 +321,7 @@ sequenceDiagram
 | **変換**（トランスレーション） | **NAT64 / DNS64** | **IPv6 だけのホストが IPv4 だけのサーバ**と通信。DNS64 が A レコードから `64:ff9b::/96` 入りの AAAA を合成し、NAT64 がヘッダを変換 |
 | | **464XLAT** | 端末側の **CLAT**（IPv4→IPv6 変換）＋ ISP 側の **PLAT**（NAT64）。IPv6 だけの網で IPv4 アプリを動かす |
 
-参考）フレッツ光などの **IPoE（IPv6）** 接続では、IPv4 を **MAP-E や DS-Lite（IPv4 over IPv6）** で通すことが多い（PPPoE の混雑を避けられる）。
+参考）光回線の **IPoE（IPv6）** 接続では、IPv4 を **MAP-E や DS-Lite（IPv4 over IPv6）** で通すことが多い（PPPoE の混雑を避けられる）。
 
 ### アドレス選択とフォールバック
 
