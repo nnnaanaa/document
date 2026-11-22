@@ -37,7 +37,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | シート | 内容 |
 | --- | --- |
 | [サブネット計算暗記シート](network/ip-address/subnet-cheatsheet.md) | サブネット計算の公式・早見表まとめ |
-| [サブネット計算の実例](network/ip-address/ipaddr.md) | サブネットマスク計算の実例2パターン |
 | [IPv6 暗記シート](network/ip-address/ipv6.md) | IPv6のアドレス・NDP・SLAAC/DHCPv6・移行技術まとめ |
 
 ## LAN・L2
@@ -47,7 +46,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | [イーサネット規格](network/lan/ethernet-types.md) | 10BASE-T等イーサネット規格と伝送速度 |
 | [PoE](network/lan/poe.md) | PoE規格(802.3af/at/bt)と給電電力 |
 | [IEEE 802.X 規格一覧](network/lan/ieee802x.md) | 試験に頻出するIEEE802.X規格一覧 |
-| [LAG・STP](network/lan/lag-stp.md) | LAGとSTP(ポート役割/ステータス/RSTP/MSTP) |
 | [L2 冗長化 暗記シート](network/lan/l2-redundancy.md) | ループ・STP/RSTP/MSTP・リンクアグリゲーション・スタックまとめ |
 | [VXLAN 暗記シート](network/lan/vxlan.md) | VXLANのヘッダ・MTU・Leaf-Spine・EVPN・ESIまとめ |
 | [無線LAN 暗記シート](network/lan/wifi-cheatsheet.md) | 規格・チャネル/DFS・CSMA/CA・WPA3/802.1X・WLC・ローミングまとめ |
@@ -82,7 +80,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 
 | シート | 内容 |
 | --- | --- |
-| [QoS](network/operation/qos.md) | 帯域/優先度制御・DiffServ・CoS/DSCP |
 | [運用・監視 暗記シート](network/operation/ops-monitoring.md) | SNMP・Syslog・NTP・フロー情報・ミラーポート・障害の切り分けまとめ |
 | [計算問題 暗記シート](network/operation/calculation.md) | 伝送時間・稼働率・待ち行列・呼量・VoIP帯域などの公式と例題 |
 
@@ -97,8 +94,6 @@ IPA ネットワークスペシャリスト試験の午後（記述式）に向�
 | [DNS 暗記シート](network/protocol/dns.md) | 名前解決・レコード・TTL・構成・DNSへの攻撃と対策まとめ |
 | [HTTP](network/protocol/http.md) | ステータスコード・ヘッダー・認証方式 |
 | [TLS](network/protocol/tls.md) | TLS1.2/1.3のネゴシエーション比較 |
-| [電子メールのヘッダ](network/protocol/email-header.md) | 電子メールヘッダの構造と偽装可能性 |
-| [送信ドメイン認証](network/protocol/mail-security.md) | SPF/DKIM/DMARCによる送信ドメイン認証 |
 | [メール 暗記シート](network/protocol/mail.md) | SMTP・MX・エンベロープ・OP25B・SPF/DKIM/DMARCまとめ |
 | [VoIP](network/protocol/voip.md) | VoIPのSIP/RTPによる通話の流れと音声符号化 |
 | [IoT 暗記シート](network/protocol/iot.md) | LPWA（LTE-M・NB-IoT・LoRaWAN）・MQTT・CoAPまとめ |

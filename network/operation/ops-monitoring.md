@@ -227,4 +227,4 @@ flowchart LR
 | 管理用の通信を別のネットワークにする理由 | 「利用者の通信に障害があっても、**機器に接続して調べられる**ようにするため」 |
 | 冗長構成の機器を片方ずつ更新する理由 | 「作業中も**もう片方で通信を続け**、問題があればすぐに戻せるようにするため」 |
 
-関連: [qos.md](qos.md) / [calculation.md](calculation.md) / [../protocol/well-known-ports.md](../protocol/well-known-ports.md) / [../lan/l2-redundancy.md](../lan/l2-redundancy.md) / [../security/security.md](../security/security.md)
+関連: [tcp-qos.md](../protocol/tcp-qos.md) / [calculation.md](calculation.md) / [../protocol/well-known-ports.md](../protocol/well-known-ports.md) / [../lan/l2-redundancy.md](../lan/l2-redundancy.md) / [../security/security.md](../security/security.md)

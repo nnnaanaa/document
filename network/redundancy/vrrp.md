@@ -194,4 +194,4 @@ VRRP はふだん**マスタしか転送しない**ので、バックアップ�
 | プリエンプトを無効にする理由 | 「復旧時の自動切戻しによる**通信断を避け**、切戻しの時刻を管理者が決めるため」 |
 | 2台ともマスタになる原因 | 「ルータ間の経路が切れ、**アドバタイズメントが届かなくなった**から」 |
 
-関連: [lb-proxy.md](lb-proxy.md) / [../lan/lag-stp.md](../lan/lag-stp.md) / [../routing/multicast.md](../routing/multicast.md)（224.0.0.18） / [../routing/reliability.md](../routing/reliability.md)
+関連: [lb-proxy.md](lb-proxy.md) / [l2-redundancy.md](../lan/l2-redundancy.md) / [../routing/multicast.md](../routing/multicast.md)（224.0.0.18） / [../routing/reliability.md](../routing/reliability.md)

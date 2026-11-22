@@ -217,4 +217,4 @@ flowchart TB
 | コントローラが止まっても通信がしばらく続く理由 | 「通信は**エッジ同士が直接**行い、**コントローラを経由しない**から」 |
 | 2本の回線を別の事業者・別の経路にする理由 | 「同じ事業者・同じ経路だと、**同時に故障**するおそれがあるから」 |
 
-関連: [wan-vpn.md](wan-vpn.md) / [ipsec.md](ipsec.md) / [mpls.md](mpls.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [../operation/qos.md](../operation/qos.md)
+関連: [wan-vpn.md](wan-vpn.md) / [ipsec.md](ipsec.md) / [mpls.md](mpls.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [tcp-qos.md](../protocol/tcp-qos.md)

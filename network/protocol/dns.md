@@ -181,7 +181,7 @@ sequenceDiagram
 | **DNSSEC** | 応答に**デジタル署名**を付け、**正しいサーバからの応答で、改ざんされていない**ことを検証する | 暗号化はしない（盗聴は防げない）。応答が大きくなる |
 | **DoT / DoH** | 問合せを **TLS（TCP 853）/ HTTPS（TCP 443）** で暗号化し、盗聴・改ざんを防ぐ | 社内の DNS による制御・監視を通らなくなることがある |
 
-メールの送信ドメイン認証（SPF・DKIM・DMARC）は [mail-security.md](mail-security.md) を参照。
+メールの送信ドメイン認証（SPF・DKIM・DMARC）は [mail.md](mail.md) を参照。
 
 ## 午後でよく問われるポイント
 
@@ -197,4 +197,4 @@ sequenceDiagram
 | キャッシュポイズニングの対策 | 問合せの**送信元ポート番号をランダムにする**、DNSSEC で応答を検証する |
 | DNS で接続先の拠点を切り替える方法と注意点 | **DNS の応答を切替え先の IP アドレスに変える**。TTL の時間だけ切替えが遅れる |
 
-関連: [mail-security.md](mail-security.md) / [dhcp-nat.md](dhcp-nat.md) / [../ip-address/ipv6.md](../ip-address/ipv6.md) / [lb-proxy.md](../redundancy/lb-proxy.md)
+関連: [mail.md](mail.md) / [dhcp-nat.md](dhcp-nat.md) / [../ip-address/ipv6.md](../ip-address/ipv6.md) / [lb-proxy.md](../redundancy/lb-proxy.md)

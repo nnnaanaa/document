@@ -207,6 +207,7 @@ Subject: 会議の件
 | `p=quarantine` | **隔離**する（迷惑メールフォルダに入れる） |
 | `p=reject` | **受信を拒否**する |
 | `rua=` | 認証結果の**集計レポートの送り先** |
+| `ruf=` | 認証に失敗したメール1通ごとの**詳細レポート（フォレンジックレポート）の送り先** |
 
 **DMARC の合格条件**: 次のどちらかを満たすこと
 
@@ -322,4 +323,4 @@ flowchart LR
 | PC から外部の TCP 25番を FW で止める理由 | 「マルウェアに感染した PC が、**メールサーバを経由せずに送信する**のを防ぐため」 |
 | メールサーバの移行前に MX の TTL を短くする理由 | 「MX レコードの変更が、**キャッシュに残らず早く反映される**ようにするため」 |
 
-関連: [email-header.md](email-header.md) / [mail-security.md](mail-security.md) / [dns.md](dns.md) / [well-known-ports.md](well-known-ports.md) / [../security/auth-pki.md](../security/auth-pki.md)
+関連: [dns.md](dns.md) / [well-known-ports.md](well-known-ports.md) / [../security/auth-pki.md](../security/auth-pki.md)

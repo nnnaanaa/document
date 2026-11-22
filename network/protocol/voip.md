@@ -69,4 +69,4 @@ VoIPシステムの例: 固定電話 ─ PBX ─ VoIPゲートウェイ ─ IP-P
 | **PCM** (Pulse Code Modulation) | 量子化されたデータをそのまま符号化, VoIPでは **64 kbps** 程度の帯域幅を消費 |
 | **CS-ACELP** (Conjugate-Structure Algebraic Code Excited Linear Prediction) | 量子化されたデータをあらかじめ用意しておいたパターンに置き換えて符号化, VoIPでは **8kbps** 程度の帯域幅を消費（PCMに比べて音質が劣る） |
 
-関連: [http.md](http.md)（SIPのステータスコードはHTTPと同様の体系） / [../operation/qos.md](../operation/qos.md)（音声トラフィックの優先度制御）
+関連: [http.md](http.md)（SIPのステータスコードはHTTPと同様の体系） / [tcp-qos.md](tcp-qos.md)（音声トラフィックの優先度制御）

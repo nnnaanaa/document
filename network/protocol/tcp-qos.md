@@ -343,4 +343,4 @@ flowchart LR
 | QoS で PQ を使うときの問題点 | 「優先度の高い通信が続くと、**低い優先度の通信が送られなくなる**」 |
 | QoS で音声を最優先にする理由 | 「音声は**遅延と揺らぎに弱く**、遅れて届いたパケットは使えないから」 |
 
-関連: [udp.md](udp.md) / [voip.md](voip.md) / [../operation/qos.md](../operation/qos.md) / [../operation/calculation.md](../operation/calculation.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)（MSS の調整）
+関連: [udp.md](udp.md) / [voip.md](voip.md) / [../operation/calculation.md](../operation/calculation.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)（MSS の調整）

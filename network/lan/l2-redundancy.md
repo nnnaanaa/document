@@ -219,4 +219,4 @@ flowchart TB
 | STP と比べた、スタック ＋ リンクアグリゲーションの利点 | 「ループができず、**すべてのリンクを使える**。障害時の切替えも速い」 |
 | STP で冗長化すると帯域がむだになる理由 | 「ブロッキングポートのつながるリンクは、**ふだん通信に使われない**から」 |
 
-関連: [lag-stp.md](lag-stp.md) / [vxlan.md](vxlan.md) / [ieee802x.md](ieee802x.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [../routing/reliability.md](../routing/reliability.md)
+関連: [vxlan.md](vxlan.md) / [ieee802x.md](ieee802x.md) / [../redundancy/vrrp.md](../redundancy/vrrp.md) / [../routing/reliability.md](../routing/reliability.md)

@@ -3,7 +3,7 @@
 
 ***
 
-証明書・TLS・認証は [auth-pki.md](auth-pki.md)、DNS への攻撃は [../protocol/dns.md](../protocol/dns.md)、メールは [../protocol/mail-security.md](../protocol/mail-security.md) を参照。
+証明書・TLS・認証は [auth-pki.md](auth-pki.md)、DNS への攻撃は [../protocol/dns.md](../protocol/dns.md)、メールは [mail.md](../protocol/mail.md) を参照。
 
 ## ファイアウォール（FW）
 
@@ -196,4 +196,4 @@ flowchart LR
 | 感染 PC を見つけたときの最初の対応 | **ネットワークから切り離す**（拡散・情報の持ち出しを止める） |
 | セキュリティの面でセグメントを分ける理由 | マルウェアの**内部での拡散範囲を限定**するため |
 
-関連: [auth-pki.md](auth-pki.md) / [../protocol/dns.md](../protocol/dns.md) / [../protocol/http.md](../protocol/http.md) / [../protocol/mail-security.md](../protocol/mail-security.md) / [ops-monitoring.md](../operation/ops-monitoring.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)
+関連: [auth-pki.md](auth-pki.md) / [../protocol/dns.md](../protocol/dns.md) / [../protocol/http.md](../protocol/http.md) / [mail.md](../protocol/mail.md) / [ops-monitoring.md](../operation/ops-monitoring.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md)

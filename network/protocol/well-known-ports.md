@@ -54,4 +54,4 @@
 | 4739 | UDP/TCP | IPFIX |
 | 4789 | UDP | VXLAN |
 
-関連: [dhcp-nat.md](dhcp-nat.md) / [email-header.md](email-header.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md) / [ops-monitoring.md](../operation/ops-monitoring.md)
+関連: [dhcp-nat.md](dhcp-nat.md) / [mail.md](mail.md) / [../wan-vpn/ipsec.md](../wan-vpn/ipsec.md) / [ops-monitoring.md](../operation/ops-monitoring.md)
